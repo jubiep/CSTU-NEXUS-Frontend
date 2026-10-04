@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <title>CSTU NEXUS – รายวิชา</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+  <div class="app-shell">
+    <div class="topbar">
+      <a href="courses.html" style="color:var(--white);font-size:22px;text-decoration:none;line-height:1;">‹</a>
+      <span class="topbar-title" id="topbar-code">รายวิชา</span>
+      <span class="section-badge" id="section-badge" onclick="toggleSection()">Section ▾</span>
+    </div>
+
+    <div class="page-content">
+      <!-- Course header -->
+      <div class="course-detail-header">
+        <div class="course-code" id="detail-code"></div>
+        <div class="course-fullname" id="detail-name"></div>
+        <div class="course-teacher" id="detail-teacher"></div>
+      </div>
+
+      <!-- Section selector (hidden by default) -->
+      <div id="section-panel" style="display:none;margin-bottom:14px;">
+        <div class="card" style="padding:12px;">
+          <div style="font-size:13px;font-weight:600;margin-bottom:8px;color:var(--gray-600);">เลือก Section</div>
+          <div id="section-list" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+        </div>
+      </div>
+
+      <!-- Write Review button -->
+      <a href="write-review.html" id="write-btn" class="btn btn-primary btn-full mb-16">
+        ✏️ เขียนรีวิว
+      </a>
+
+      <!-- Reviews -->
+      <div class="section-header">
+        <span class="section-title">รีวิวทั้งหมด</span>
+        <span class="text-muted" id="review-count"></span>
+      </div>
+
+      <div id="review-list"></div>
+
+      <!-- Pagination -->
+      <div class="pagination" id="pagination"></div>
+    </div>
+
+    <nav class="bottom-nav" id="bottom-nav"></nav>
+  </div>
+
+  <script src="../js/app.js"></script>
+  <script>
+    requireAuth();
+    renderNav("search");
+
+    const code = getParam("code") || "CS261";
+    const course = getCourse(code);
+
+    if (!course) {
+      document.body.innerHTML = "<p style='padding:40px;text-align:center;'>ไม่พบรายวิชา</p>";
+      throw new Error("Course not found");
+    }
+
+    // Fill header
+    document.getElementById("topbar-code").textContent = code;
+    document.getElementById("detail-code").textContent = code;
+    document.getElementById("detail-name").textContent = course.name;
+    document.getElementById("detail-teacher").textContent = course.teacher;
+
+    // Section list
+    const sectionList = document.getElementById("section-list");
+    course.sections.forEach(s => {
+      const btn = document.createElement("button");
+      btn.className = "btn btn-outline btn-sm";
+      btn.textContent = "Section " + s;
+      sectionList.appendChild(btn);
+    });
+
+    function toggleSection() {
+      const panel = document.getElementById("section-panel");
+      panel.style.display = panel.style.display === "none" ? "block" : "none";
+    }
+
+    // Pass code to write-review
+    document.getElementById("write-btn").href = `write-review.html?code=${code}`;
+
+    // Render reviews
+    const reviews = getReviews(code);
+    document.getElementById("review-count").textContent = `${reviews.length} รีวิว`;
+
+    const reviewList = document.getElementById("review-list");
+    if (reviews.length === 0) {
+      reviewList.innerHTML = `<p style="text-align:center;color:var(--gray-400);padding:32px 0;font-size:14px;">ยังไม่มีรีวิว — เป็นคนแรกที่รีวิวรายวิชานี้!</p>`;
+    } else {
+      reviews.forEach(r => {
+        const tags = r.tags.map(t =>
+          `<span class="badge-tag tag-ok">${t}</span>`
+        ).join('');
+        reviewList.innerHTML += `
+          <div class="review-item">
+            <div class="review-header">
+              <div class="review-avatar">🎓</div>
+              <div class="review-meta">
+                <div class="review-name">Anonymous
+                  <span class="review-anon">รหัส : ${r.studentId}</span>
+                </div>
+                <div>${tags}</div>
+              </div>
+            </div>
+            <p class="review-text">${r.text}</p>
+          </div>`;
+      });
+    }
+
+    // Pagination (static mock)
+    if (reviews.length > 0) {
+      document.getElementById("pagination").innerHTML = `
+        <button class="page-btn arrow">‹</button>
+        <button class="page-btn active">1</button>
+        <button class="page-btn">2</button>
+        <button class="page-btn">3</button>
+        <span style="color:var(--gray-400);font-size:13px;">…</span>
+        <button class="page-btn">6</button>
+        <button class="page-btn arrow">›</button>`;
+    }
+  </script>
+</body>
+</html>

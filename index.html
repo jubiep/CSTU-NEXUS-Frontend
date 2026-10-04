@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <title>CSTU NEXUS – เข้าสู่ระบบ</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <style>
+    body { background: var(--white); }
+    .login-wrap {
+      max-width: 420px;
+      min-height: 100vh;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 32px;
+      background: var(--white);
+    }
+    .login-logo {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--red);
+      letter-spacing: -1px;
+      margin-bottom: 6px;
+    }
+    .login-logo span { color: var(--yellow); }
+    .login-tagline {
+      font-size: 13px;
+      color: var(--gray-400);
+      margin-bottom: 40px;
+      text-align: center;
+    }
+    .login-card {
+      width: 100%;
+      background: var(--white);
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      box-shadow: var(--shadow-md);
+    }
+    .forgot-link {
+      display: block;
+      text-align: right;
+      font-size: 13px;
+      color: var(--gray-400);
+      text-decoration: none;
+      margin-top: -8px;
+      margin-bottom: 20px;
+    }
+    .forgot-link:hover { color: var(--red); }
+    .login-note {
+      font-size: 12px;
+      color: var(--gray-400);
+      text-align: center;
+      margin-top: 18px;
+    }
+    .error-msg {
+      background: #FFEBEE;
+      color: var(--red);
+      font-size: 13px;
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 14px;
+      display: none;
+    }
+    .error-msg.show { display: block; }
+  </style>
+</head>
+<body>
+  <div class="login-wrap">
+    <div class="login-logo">CSTU <span>NEXUS</span></div>
+    <p class="login-tagline">ระบบรีวิวรายวิชา มหาวิทยาลัยธรรมศาสตร์</p>
+
+    <div class="login-card">
+      <div class="error-msg" id="error-msg">ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง</div>
+
+      <div class="form-group">
+        <label class="form-label">ชื่อผู้ใช้ (TU NetID)</label>
+        <input class="form-input" type="text" id="username" placeholder="เช่น u6809617407" autocomplete="username"/>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">รหัสผ่าน</label>
+        <input class="form-input" type="password" id="password" placeholder="••••••••" autocomplete="current-password"/>
+      </div>
+
+      <a href="#" class="forgot-link">ลืมรหัสผ่าน?</a>
+
+      <button class="btn btn-primary btn-full" onclick="doLogin()">เข้าสู่ระบบ</button>
+
+      <p class="login-note">
+        ระบบใช้การยืนยันตัวตนผ่าน TU Authentication<br/>
+        เฉพาะนักศึกษา CSTU มธ. เท่านั้น
+      </p>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    // ถ้า login แล้ว redirect ไป dashboard
+    if (sessionStorage.getItem("cstu_logged_in")) {
+      window.location.href = "pages/dashboard.html";
+    }
+
+    function doLogin() {
+      const u = document.getElementById("username").value.trim();
+      const p = document.getElementById("password").value;
+      const err = document.getElementById("error-msg");
+
+      if (!u || !p) {
+        err.textContent = "กรุณากรอกชื่อผู้ใช้และรหัสผ่าน";
+        err.classList.add("show");
+        return;
+      }
+
+      // TODO: เชื่อม TU Auth API
+      // Mock: รับทุก credential
+      sessionStorage.setItem("cstu_logged_in", "1");
+      window.location.href = "pages/dashboard.html";
+    }
+
+    // Enter key
+    document.addEventListener("keydown", e => {
+      if (e.key === "Enter") doLogin();
+    });
+  </script>
+</body>
+</html>

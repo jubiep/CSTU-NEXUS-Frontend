@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <title>CSTU NEXUS – เขียนรีวิว</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+  <div class="app-shell">
+    <div class="topbar">
+      <a id="back-btn" href="#" style="color:var(--white);font-size:22px;text-decoration:none;line-height:1;">‹</a>
+      <span class="topbar-title" id="topbar-code">เขียนรีวิว</span>
+      <span class="section-badge" id="section-badge">Section ▾</span>
+    </div>
+
+    <div class="page-content">
+      <!-- Course info -->
+      <div class="course-detail-header">
+        <div class="course-code" id="detail-code"></div>
+        <div class="course-fullname" id="detail-name"></div>
+        <div class="course-teacher" id="detail-teacher"></div>
+      </div>
+
+      <p style="font-size:13px;color:var(--gray-400);margin-bottom:16px;">
+        คุณได้รับสิทธิ์เขียนรีวิวรายวิชานี้ประสบการณ์ตรง
+      </p>
+
+      <!-- Text review -->
+      <div class="form-group">
+        <label class="form-label">รายวิชา <span id="inline-code"></span></label>
+        <textarea class="form-input" id="review-text" placeholder="เขียนรีวิวของคุณ..." rows="4"></textarea>
+      </div>
+
+      <!-- แนวทางการสอน -->
+      <div class="rating-group">
+        <span class="rating-label">แนวทางการสอน</span>
+        <div class="checkbox-list">
+          <label class="checkbox-item"><input type="checkbox" name="style" value="เน้นทฤษฎี"/> เน้นทฤษฎี</label>
+          <label class="checkbox-item"><input type="checkbox" name="style" value="สนุก"/> สนุก</label>
+          <label class="checkbox-item"><input type="checkbox" name="style" value="เน้นปฏิบัติ"/> เน้นปฏิบัติ</label>
+        </div>
+      </div>
+
+      <!-- สื่อการเรียน -->
+      <div class="rating-group">
+        <span class="rating-label">สื่อการเรียนและสื่อกระตุก</span>
+        <div class="checkbox-list">
+          <label class="checkbox-item"><input type="checkbox" name="media" value="มีสไลด์"/> มีสไลด์</label>
+          <label class="checkbox-item"><input type="checkbox" name="media" value="สนุก"/> สนุก</label>
+          <label class="checkbox-item"><input type="checkbox" name="media" value="ไม่โต้งาน"/> ไม่โต้งาน</label>
+        </div>
+      </div>
+
+      <!-- ปริมาณงาน -->
+      <div class="rating-group">
+        <span class="rating-label">ปริมาณงาน</span>
+        <div class="checkbox-list">
+          <label class="checkbox-item"><input type="radio" name="workload" value="ไม่งาน"/> ไม่งาน</label>
+          <label class="checkbox-item"><input type="radio" name="workload" value="น้อย"/> น้อย</label>
+          <label class="checkbox-item"><input type="radio" name="workload" value="ปริมาณงานกลาง"/> ปริมาณงานกลาง</label>
+          <label class="checkbox-item"><input type="radio" name="workload" value="ปริมาณมาก"/> ปริมาณมาก</label>
+        </div>
+      </div>
+
+      <!-- รูปแบบงาน -->
+      <div class="rating-group">
+        <span class="rating-label">รูปแบบงาน</span>
+        <div class="checkbox-list">
+          <label class="checkbox-item"><input type="radio" name="format" value="ส่งเดี่ยว"/> ส่งเดี่ยว</label>
+          <label class="checkbox-item"><input type="radio" name="format" value="กลุ่ม"/> กลุ่ม</label>
+          <label class="checkbox-item"><input type="radio" name="format" value="ส่งทั้งคู่"/> ส่งทั้งคู่</label>
+        </div>
+      </div>
+
+      <!-- หมายเหตุเพิ่มเติม -->
+      <div class="form-group">
+        <label class="form-label">หมายเหตุ</label>
+        <textarea class="form-input" id="extra-note" placeholder="เพิ่ม สิ่งที่ตั้งข้อ ปัญหาที่เจอ หรือเนื้อหาอื่นๆ ที่อยากบอก..." rows="3"></textarea>
+      </div>
+
+      <!-- Validation error -->
+      <div id="form-error" class="error-msg" style="display:none;background:#FFEBEE;color:var(--red);font-size:13px;padding:10px 14px;border-radius:var(--radius-sm);margin-bottom:14px;">
+        กรุณาเขียนรีวิวก่อนส่ง
+      </div>
+
+      <button class="btn btn-danger btn-full" onclick="submitReview()">ส่ง</button>
+    </div>
+
+    <!-- Success modal -->
+    <div class="modal-overlay" id="success-modal">
+      <div class="modal-box">
+        <div class="modal-icon">✓</div>
+        <div class="modal-title">รีวิวเสร็จสิ้น</div>
+        <button class="btn btn-primary btn-full" onclick="goBack()">ย้อนกลับ</button>
+      </div>
+    </div>
+
+    <nav class="bottom-nav" id="bottom-nav"></nav>
+  </div>
+
+  <script src="../js/app.js"></script>
+  <script>
+    requireAuth();
+    renderNav("search");
+
+    const code = getParam("code") || "CS261";
+    const course = getCourse(code);
+
+    document.getElementById("back-btn").href = `course-detail.html?code=${code}`;
+    document.getElementById("topbar-code").textContent = code;
+    document.getElementById("detail-code").textContent = code;
+    document.getElementById("inline-code").textContent = code;
+    if (course) {
+      document.getElementById("detail-name").textContent = course.name;
+      document.getElementById("detail-teacher").textContent = course.teacher;
+    }
+
+    function submitReview() {
+      const text = document.getElementById("review-text").value.trim();
+      const errEl = document.getElementById("form-error");
+
+      if (!text) {
+        errEl.style.display = "block";
+        document.getElementById("review-text").focus();
+        return;
+      }
+      errEl.style.display = "none";
+
+      // TODO: POST /api/reviews
+      // Mock: แสดง success modal
+      document.getElementById("success-modal").classList.add("show");
+    }
+
+    function goBack() {
+      window.location.href = `course-detail.html?code=${code}`;
+    }
+  </script>
+</body>
+</html>
