@@ -1,0 +1,132 @@
+/* ==========================================
+   CSTU NEXUS - Course Detail Page Styles (course-detail.html)
+   ========================================== */
+
+/* Course Detail Header */
+.course-detail-header {
+  margin-bottom: 18px;
+}
+.course-detail-header .course-code {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--red);
+}
+.course-detail-header .course-fullname {
+  font-size: 14px;
+  color: var(--gray-600);
+  margin-top: 2px;
+}
+.course-detail-header .course-teacher {
+  font-size: 13px;
+  color: var(--gray-400);
+  margin-top: 4px;
+}
+
+/* Section Badge */
+.section-badge {
+  background: var(--red);
+  color: var(--white);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Write review header prompt */
+.write-review-header {
+  margin-bottom: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray-600);
+}
+
+/* Review Item */
+.review-item {
+  border-bottom: 1px solid var(--gray-100);
+  padding: 14px 0;
+}
+.review-item:last-child {
+  border-bottom: none;
+}
+.review-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.review-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--gray-200);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.review-meta {
+  flex: 1;
+}
+.review-name {
+  font-size: 13px;
+  font-weight: 600;
+}
+.review-anon {
+  font-size: 12px;
+  color: var(--gray-400);
+}
+.badge-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  margin-right: 4px;
+}
+.tag-easy { background: #E8F5E9; color: #2E7D32; }
+.tag-hard { background: #FFEBEE; color: #C62828; }
+.tag-ok   { background: #FFF8E1; color: #F57F17; }
+.review-text {
+  font-size: 14px;
+  color: var(--gray-600);
+  line-height: 1.5;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 16px 0 0;
+}
+.page-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  background: none;
+  font-family: var(--font);
+  font-size: 13px;
+  cursor: pointer;
+  color: var(--gray-600);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .15s;
+}
+.page-btn:hover {
+  background: var(--gray-100);
+}
+.page-btn.active {
+  background: var(--red);
+  color: var(--white);
+  font-weight: 700;
+}
+.page-btn.arrow {
+  font-size: 16px;
+  color: var(--gray-400);
+}

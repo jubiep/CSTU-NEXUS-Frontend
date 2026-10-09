@@ -38,29 +38,6 @@
 
 ---
 
-## โครงสร้างโปรเจกต์
-
-```
-cstu-nexus/
-├── index.html              # Login page
-├── style.css               # Global stylesheet
-├── app.js                  # Shared utilities + mock data
-├── pages/
-│   ├── dashboard.html      # หน้าหลัก
-│   ├── courses.html        # ค้นหารายวิชา
-│   ├── course-detail.html  # รายละเอียดวิชา + รีวิว
-│   ├── write-review.html   # ฟอร์มเขียนรีวิว
-│   ├── profile.html        # โปรไฟล์ผู้ใช้
-│   └── preferences.html    # ตั้งค่าความชอบ
-│
-├── backend/                # Spring Boot (TODO)
-│   └── src/
-│
-└── README.md
-```
-
----
-
 ## วิธีรัน Frontend (Development)
 
 ยังไม่มี backend — เปิดไฟล์ผ่าน Live Server ได้เลย

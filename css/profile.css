@@ -1,0 +1,55 @@
+/* ==========================================
+   CSTU NEXUS - Profile Page Styles (profile.html)
+   ========================================== */
+
+/* Profile banner */
+.profile-banner {
+  background: var(--yellow);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 3px solid var(--white);
+  object-fit: cover;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  overflow: hidden;
+}
+
+.profile-info .name {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--gray-800);
+}
+
+.profile-info .student-id {
+  font-size: 13px;
+  color: var(--gray-600);
+  margin-top: 2px;
+}
+
+.profile-faculty {
+  font-size: 13px;
+  color: var(--gray-400);
+  margin-bottom: 20px;
+}
+
+/* Empty review state */
+.profile-empty-reviews {
+  text-align: center;
+  color: var(--gray-400);
+  padding: 32px 0;
+  font-size: 14px;
+}

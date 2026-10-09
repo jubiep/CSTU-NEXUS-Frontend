@@ -59,13 +59,15 @@ function getParam(key) {
 function requireAuth() {
   const loggedIn = sessionStorage.getItem("cstu_logged_in");
   if (!loggedIn) {
-    window.location.href = "../index.html";
+    const isPages = window.location.pathname.includes("/pages/");
+    window.location.href = isPages ? "index.html" : "pages/index.html";
   }
 }
 
 function logout() {
   sessionStorage.removeItem("cstu_logged_in");
-  window.location.href = "../index.html";
+  const isPages = window.location.pathname.includes("/pages/");
+  window.location.href = isPages ? "index.html" : "pages/index.html";
 }
 
 // ── Render bottom nav ────────────────────────
