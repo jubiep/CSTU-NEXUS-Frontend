@@ -3,70 +3,12 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@100;200;300;400;500;600;700&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
   <title>CSTU NEXUS – เข้าสู่ระบบ</title>
-  <link rel="stylesheet" href="style.css"/>
-  <style>
-    body { background: var(--white); }
-    .login-wrap {
-      max-width: 420px;
-      min-height: 100vh;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 32px;
-      background: var(--white);
-    }
-    .login-logo {
-      font-size: 36px;
-      font-weight: 800;
-      color: var(--red);
-      letter-spacing: -1px;
-      margin-bottom: 6px;
-    }
-    .login-logo span { color: var(--yellow); }
-    .login-tagline {
-      font-size: 13px;
-      color: var(--gray-400);
-      margin-bottom: 40px;
-      text-align: center;
-    }
-    .login-card {
-      width: 100%;
-      background: var(--white);
-      border: 1.5px solid var(--gray-200);
-      border-radius: var(--radius-lg);
-      padding: 28px 24px;
-      box-shadow: var(--shadow-md);
-    }
-    .forgot-link {
-      display: block;
-      text-align: right;
-      font-size: 13px;
-      color: var(--gray-400);
-      text-decoration: none;
-      margin-top: -8px;
-      margin-bottom: 20px;
-    }
-    .forgot-link:hover { color: var(--red); }
-    .login-note {
-      font-size: 12px;
-      color: var(--gray-400);
-      text-align: center;
-      margin-top: 18px;
-    }
-    .error-msg {
-      background: #FFEBEE;
-      color: var(--red);
-      font-size: 13px;
-      padding: 10px 14px;
-      border-radius: var(--radius-sm);
-      margin-bottom: 14px;
-      display: none;
-    }
-    .error-msg.show { display: block; }
-  </style>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <link rel="stylesheet" href="../css/login.css"/>
 </head>
 <body>
   <div class="login-wrap">
@@ -97,11 +39,11 @@
     </div>
   </div>
 
-  <script src="app.js"></script>
+  <script src="../app.js"></script>
   <script>
     // ถ้า login แล้ว redirect ไป dashboard
     if (sessionStorage.getItem("cstu_logged_in")) {
-      window.location.href = "pages/dashboard.html";
+      window.location.href = "dashboard.html";
     }
 
     function doLogin() {
@@ -118,7 +60,7 @@
       // TODO: เชื่อม TU Auth API
       // Mock: รับทุก credential
       sessionStorage.setItem("cstu_logged_in", "1");
-      window.location.href = "pages/dashboard.html";
+      window.location.href = "dashboard.html";
     }
 
     // Enter key
